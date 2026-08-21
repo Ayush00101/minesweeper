@@ -21,7 +21,7 @@ public class fisher_yates{                                              //Shuffl
         int[] board = new int[x*y];
         int mine_counter=0;
         for(int i = 0;i<x*y;i+=1){
-            if(mine_counter<10){
+            if(mine_counter<15){
                 board[i] = -1;
                 mine_counter+=1;
             }

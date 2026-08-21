@@ -1,8 +1,7 @@
-import java.util.Arrays;
+import java.util.*;
 
 public class flood_fill{
     public static int[][] two_d(int[] arr,int side){
-        int row = side;
         int[][] array = new int[side][side];
         int var_counter = 0;
 
@@ -16,7 +15,6 @@ public class flood_fill{
     }
 
     public static int[] one_d(int[][] arr,int side){
-        int row = side;
         int[] array = new int[side*side];
         int var_counter = 0;
 
@@ -37,25 +35,60 @@ public class flood_fill{
     }
 
     private static void dfs(int x,int y,int side,int[][] array){
-        if(x<0 || y >= side || y < 0 || x >= side || array[x][y] != 0){
+        if(x < 0 || y >= side || y < 0 || x >= side || array[x][y] != 0){
             return;
         }
 
-        array[x][y] = 100;
+       array[x][y] = 9;
 
         dfs(x-1, y, side, array);
         dfs(x+1, y, side, array);
         dfs(x,y+1, side, array);
         dfs(x, y-1, side, array);
-        
     }
-    public static void main(){
-        int[] plot = fisher_yates.first(9);
-        int[][] board2d = two_d(plot, 9);
 
-        flood(0, 8, 9, board2d);
-        int[] board = one_d(board2d, 9);
-        System.err.println(Arrays.toString(board));
+    // public static void main(){
 
-    }
+    //     int[] boards = fisher_yates.first(10);
+    //     int[][] board2d = board.current_element_mines(boards);
+
+    //     System.out.println();
+
+    //     for(int i = 0;i<10;i+=1){
+    //         for(int j = 0;j<10;j+=1){
+    //             if(j==0){
+    //                 System.out.printf("%d ",i);
+    //             }
+    //             if(board2d[i][j] == -1){
+    //                 System.out.printf("[b] ");
+    //             }
+    //             else{
+    //                 System.out.printf("[%d] ",board2d[i][j]);
+    //             }
+    //         }
+    //     System.out.println();
+    //     }
+
+    //     Scanner sc = new Scanner(System.in);
+    //     int x = sc.nextInt();
+    //     int y = sc.nextInt();
+    //     flood(x,y, 10, board2d);
+
+    //     for(int i = 0;i<10;i+=1){
+    //         for(int j = 0;j<10;j+=1){
+    //             if(j==0){
+    //                 System.out.printf("%d ",i);
+    //             }
+    //             if(board2d[i][j] == -1){
+    //                 System.out.printf("[b] ");
+    //             }
+    //             else{
+    //                 System.out.printf("[%d] ",board2d[i][j]);
+    //             }
+    //         }
+    //     System.out.println();
+    //     }
+
+
+    // }
 }
