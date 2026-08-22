@@ -14,7 +14,7 @@ Follow these simple steps to download and launch the game from your terminal:
 ### 1. Clone the Repository
 Run the following command to download the game code:
 ```bash
-git clone https://github.com
+git clone https://github.com/Ayush00101/minesweeper.git
 ```
 
 ### 2. Open the Folder
