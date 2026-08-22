@@ -30,5 +30,4 @@ public class fisher_yates{                                              //Shuffl
         }
         return shuffle_mines(board);
     }
-
 }
