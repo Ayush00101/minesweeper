@@ -87,12 +87,22 @@ class game{
         return board;
     }
     
+    public static int gameWon(int[] seen){
+        int len = 0;
+        for(int i : seen){
+            if(i == 1){
+                len += 1;
+            }
+        }
+        return len;
+    }
+
     public static void main(String[] args) throws InterruptedException{
 
         boolean game = true;
         generate_board b1 = new generate_board(10,10);   //Prints out the blank board for the first time only
         System.out.println();
-        int total_valid_tiles = 85;
+        int total_valid_tiles = 90;
         int current_valid_tiles = 0;
         
 
@@ -132,10 +142,15 @@ class game{
             System.out.flush();
 
             if(b1.board[(10*x)+y] == -1){
-                            game = false;
-                            display.gameEnd(b1.board, 10,b1.seen);
-                            break;
-                        }
+                game = false;
+                display.gameEnd(b1.board, 10,b1.seen);
+                break;
+            }
+            if(gameWon(b1.seen) == total_valid_tiles){
+                display.show_board(b1.board, 10,b1.seen);
+                System.out.println("\nGame Finished!");
+                break;
+            }
 
             display.show_board(b1.board, 10,b1.seen);
             System.out.println();
