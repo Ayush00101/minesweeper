@@ -60,7 +60,7 @@ public class flood_fill{
         }
 
         array[x][y] = 9;
-        seen[seenElement(x, y, side)] = 1;
+        seen[seenElement(x, y, side)] = 1;          //adding elements to the seen list
         adjacentSpaces(seen, x, y);
 
         dfs(x-1, y, side, array,seen);
