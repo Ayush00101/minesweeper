@@ -10,7 +10,6 @@ public class fisher_yates{                                              //Shuffl
             board[i] = board[pos];
             board[pos] = temp;
         }
-        // System.out.println(Arrays.toString(board));
         return board;
 
     }
@@ -21,7 +20,7 @@ public class fisher_yates{                                              //Shuffl
         int[] board = new int[x*y];
         int mine_counter=0;
         for(int i = 0;i<x*y;i+=1){
-            if(mine_counter<15){
+            if(mine_counter<10){
                 board[i] = -1;
                 mine_counter+=1;
             }
@@ -29,7 +28,6 @@ public class fisher_yates{                                              //Shuffl
                 board[i] = 0;
             }
         }
-        // System.out.println(Arrays.toString(board));
         return shuffle_mines(board);
     }
 

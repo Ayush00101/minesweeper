@@ -1,8 +1,8 @@
-import java.util.*;
+public class full_board {
 
-public class board {
+    public static int[][] current_element_mines(){
 
-    public static int[][] current_element_mines(int[] board){
+        int[] board = fisher_yates.first(10);
         int[][] d2 = flood_fill.two_d(board, 10);
 
         for(int i = 0;i<10;i+=1){
@@ -35,26 +35,5 @@ public class board {
         return d2;
 
     }
-
-    // public static void main(String[] args) {
-        
-    //     int[] board = fisher_yates.first(10);
-    //     int[][] board2d = current_element_mines(board);
-
-    //     for(int i = 0;i<10;i+=1){
-    //         for(int j = 0;j<10;j+=1){
-    //             if(j==0){
-    //                 System.out.printf("%d ",i);
-    //             }
-    //             if(board2d[i][j] == -1){
-    //                 System.out.printf("[b] ");
-    //             }
-    //             else{
-    //                 System.out.printf("[%d] ",board2d[i][j]);
-    //             }
-    //         }
-    //     System.out.println();
-    //     }
-    // }
 
 }

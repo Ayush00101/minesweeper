@@ -4,6 +4,7 @@ class generate_board{
     int x;
     int y;
     int[] board = new int[x*y];
+    int[] seen = new int[x*y];
     
     void show_coordinates(int side){
 
@@ -23,20 +24,21 @@ class generate_board{
     }
 
     generate_board(int x,int y){
-        System.out.println("\n----------Minesweeper----------\n");
+        System.out.println("\n" + "\u001B[35m" + "--------------Minesweeper--------------" + "\u001B[0m" + "\n");
         this.x = x;
         this.y = y;
-
+        this.seen = new int[x*y];
         show_coordinates(x);  //Generates the y coodinates
 
-        this.board = fisher_yates.first(x);            //BOARD FINALLY DEFINED GLOBALLY WITH
+
+        this.board = flood_fill.one_d(full_board.current_element_mines(),10);            //BOARD FINALLY DEFINED GLOBALLY WITH
 
         for(int i = 0;i<x;i+=1){
             for(int j = 0;j<y;j+=1){
                 if(j==0){
                     System.out.printf("%d ",i);
                 }
-                System.out.printf("[ ] ");
+                System.out.printf("[X] ");
             }
         System.out.println();
         }
@@ -75,9 +77,12 @@ class game{
     }
 
     public static int[] reroll(int side,int x,int y){
-        int[] board = fisher_yates.first(side);
-        if(isBomb(x, y, board, 10) == 1){
-            reroll(side, x, y);
+        int[] board = flood_fill.one_d(full_board.current_element_mines(),10);
+        // System.out.println("Bomb or number found\n" + Arrays.toString(board));
+        int bomb = isBomb(x, y, board, 10);
+        if(bomb == 1){
+            // System.out.println("Bomb or number found\n" + Arrays.toString(board));
+            return reroll(side, x, y);
         }
         return board;
     }
@@ -87,7 +92,7 @@ class game{
         boolean game = true;
         generate_board b1 = new generate_board(10,10);   //Prints out the blank board for the first time only
         System.out.println();
-        int total_valid_tiles = 84;
+        int total_valid_tiles = 85;
         int current_valid_tiles = 0;
         
 
@@ -100,17 +105,43 @@ class game{
         int y = Integer.parseInt(coords[1]);
 
         int bomb = isBomb(x, y, b1.board, 10);
-
         if(bomb == 1){
-            // System.out.println("Bomb found shuffling again");
             b1.board = reroll(10, x, y);
         }
 
+        int[][] box =  flood_fill.flood(x, y, 10, flood_fill.two_d(b1.board,10),b1.seen);
+        b1.board = flood_fill.one_d(box, 10);
+
+        System.out.print("\033[H\033[2J");       //Clears the screen
+        System.out.flush();
+
+        display.show_board(b1.board, 10,b1.seen);
+        System.out.println();
 
         while(game && current_valid_tiles != total_valid_tiles){                                        //Playing the game in loop until the player clicks a mine
-            System.out.print("Coordinates: ");
+            System.out.print("\nCoordinates: ");
             pos = sc.nextLine();
             coords = pos.split(",");
+            x = Integer.parseInt(coords[0]);
+            y = Integer.parseInt(coords[1]);
+
+            box =  flood_fill.flood(x, y, 10, flood_fill.two_d(b1.board,10),b1.seen);
+            b1.board = flood_fill.one_d(box, 10);
+
+            System.out.print("\033[H\033[2J");       //Clears the screen
+            System.out.flush();
+
+            if(b1.board[(10*x)+y] == -1){
+                            game = false;
+                            display.gameEnd(b1.board, 10,b1.seen);
+                            break;
+                        }
+
+            display.show_board(b1.board, 10,b1.seen);
+            System.out.println();
+
+
+            
         }
 
         sc.close();

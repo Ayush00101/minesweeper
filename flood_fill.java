@@ -27,68 +27,45 @@ public class flood_fill{
         return array;
     }
 
-    public static int[][] flood(int x,int y,int side,int[][] array){
+    public static int seenElement(int x,int y,int size){
+        int coords = (size*x)+y;
+        return coords;
+    }
+
+    public static int[][] flood(int x,int y,int side,int[][] array,int[] seen){
+        seen[seenElement(x, y, side)] = 1;
         if(array[x][y]==0){
-            dfs(x, y, side, array);
+            dfs(x, y, side, array,seen);
         }
         return array;
     }
 
-    private static void dfs(int x,int y,int side,int[][] array){
+    public static void adjacentSpaces(int[] seen,int i,int j){
+
+        for(int r = -1;r<=1;r+=1){
+            for(int c = -1;c<=1;c+=1){
+                if(r == 0 && c == 0){
+                    continue;
+                }
+                if(i+r >= 0 && j+c < 10 && j+c >= 0 && i+r < 10){
+                    seen[seenElement(i+r, j+c, 10)] = 1;
+                }
+            }
+        }
+    }
+
+    private static void dfs(int x,int y,int side,int[][] array,int[] seen){
         if(x < 0 || y >= side || y < 0 || x >= side || array[x][y] != 0){
             return;
         }
 
-       array[x][y] = 9;
+        array[x][y] = 9;
+        seen[seenElement(x, y, side)] = 1;
+        adjacentSpaces(seen, x, y);
 
-        dfs(x-1, y, side, array);
-        dfs(x+1, y, side, array);
-        dfs(x,y+1, side, array);
-        dfs(x, y-1, side, array);
+        dfs(x-1, y, side, array,seen);
+        dfs(x+1, y, side, array,seen);
+        dfs(x,y+1, side, array,seen);
+        dfs(x, y-1, side, array,seen);
     }
-
-    // public static void main(){
-
-    //     int[] boards = fisher_yates.first(10);
-    //     int[][] board2d = board.current_element_mines(boards);
-
-    //     System.out.println();
-
-    //     for(int i = 0;i<10;i+=1){
-    //         for(int j = 0;j<10;j+=1){
-    //             if(j==0){
-    //                 System.out.printf("%d ",i);
-    //             }
-    //             if(board2d[i][j] == -1){
-    //                 System.out.printf("[b] ");
-    //             }
-    //             else{
-    //                 System.out.printf("[%d] ",board2d[i][j]);
-    //             }
-    //         }
-    //     System.out.println();
-    //     }
-
-    //     Scanner sc = new Scanner(System.in);
-    //     int x = sc.nextInt();
-    //     int y = sc.nextInt();
-    //     flood(x,y, 10, board2d);
-
-    //     for(int i = 0;i<10;i+=1){
-    //         for(int j = 0;j<10;j+=1){
-    //             if(j==0){
-    //                 System.out.printf("%d ",i);
-    //             }
-    //             if(board2d[i][j] == -1){
-    //                 System.out.printf("[b] ");
-    //             }
-    //             else{
-    //                 System.out.printf("[%d] ",board2d[i][j]);
-    //             }
-    //         }
-    //     System.out.println();
-    //     }
-
-
-    // }
 }
