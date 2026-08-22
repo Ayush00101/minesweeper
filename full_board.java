@@ -7,16 +7,12 @@ public class full_board {
 
         for(int i = 0;i<10;i+=1){
             for(int j = 0;j<10;j+=1){
-
                 if(d2[i][j] == -1){
                     continue;
                 }
-
                 int val = 0;
-
                 for(int r = -1;r<=1;r+=1){
                     for(int c = -1;c<=1;c+=1){
-
                         if(r == 0 && c == 0){
                             continue;
                         }
@@ -27,13 +23,10 @@ public class full_board {
                         }
                     }
                 }
-
                 d2[i][j] = val;
             }
         }
-
         return d2;
-
     }
 
 }
